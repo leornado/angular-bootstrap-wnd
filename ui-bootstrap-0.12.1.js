@@ -1,8 +1,8 @@
 /*
  * angular-ui-bootstrap
- * http://angular-ui.github.io/bootstrap/
+ * https://github.com/leornado/angular-ui-bootstrap-wnd.git
 
- * Version: 0.12.1 - 2015-05-11
+ * Version: 0.12.1 - 2015-05-12
  * License: MIT
  */
 angular.module("ui.bootstrap", ["ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdown","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]);
@@ -2594,9 +2594,11 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
               }
 
               function hideTooltipBind () {
-                scope.$apply(function () {
-                  hide();
-                });
+                if(!scope.$root.$$phase) {
+                  scope.$apply(function () {
+                    hide();
+                  });
+                }
               }
 
               // Show the tooltip popup element.
@@ -2620,13 +2622,17 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
 
                 // Set the initial positioning.
                 tooltip.css({ top: 0, left: 0, display: 'block' });
-                ttScope.$digest();
+                if(!ttScope.$root.$$phase) {
+                  ttScope.$digest();
+                }
 
                 positionTooltip();
 
                 // And show the tooltip.
                 ttScope.isOpen = true;
-                ttScope.$apply(); // digest required as $apply is not called
+                if(!ttScope.$root.$$phase) {
+                  ttScope.$apply(); // digest required as $apply is not called
+                }
 
                 // Return positioning function as promise callback for correct
                 // positioning after draw.

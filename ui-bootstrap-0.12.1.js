@@ -2594,11 +2594,12 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
               }
 
               function hideTooltipBind () {
-                if(!scope.$root.$$phase) {
-                  scope.$apply(function () {
-                    hide();
-                  });
-                }
+                //if(!scope.$root.$$phase) {
+                //  scope.$apply(function () {
+                //    hide();
+                //  });
+                //}
+                hide();
               }
 
               // Show the tooltip popup element.
@@ -2622,17 +2623,17 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
 
                 // Set the initial positioning.
                 tooltip.css({ top: 0, left: 0, display: 'block' });
-                if(!ttScope.$root.$$phase) {
-                  ttScope.$digest();
-                }
+                //if(!ttScope.$root.$$phase) {
+                //  ttScope.$digest();
+                //}
 
                 positionTooltip();
 
                 // And show the tooltip.
                 ttScope.isOpen = true;
-                if(!ttScope.$root.$$phase) {
-                  ttScope.$apply(); // digest required as $apply is not called
-                }
+                //if(!ttScope.$root.$$phase) {
+                //  ttScope.$apply(); // digest required as $apply is not called
+                //}
 
                 // Return positioning function as promise callback for correct
                 // positioning after draw.
